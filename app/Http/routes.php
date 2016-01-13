@@ -27,24 +27,29 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
+
+  Route::auth();
   
 
-  Route::get('/tasks', ['as' => 'taskshow', 'uses' => 'TaskController@show']);
+  Route::get('/tasks', ['as' => 'task', 'uses' => 'TaskController@index']);
+
+
+  Route::get('/tasks/{id}', ['as' => 'task_show', 'uses' => 'TaskController@show'])->where('id', '[0-9]+');
 
   /**
   * Add A New Task
   */
-  Route::get('/tasks/add', ['as' => 'taskadd','uses' => 'TaskController@add']);
+  Route::get('/tasks/add', ['as' => 'task_add','uses' => 'TaskController@add']);
 
   /**
   * Add A New Task Traitement
   */
-  Route::post('/tasks/add', ['as' => 'taskaddtraitement','uses' => 'TaskController@addTraitement']);
+  Route::post('/tasks/store', ['as' => 'task_store','uses' => 'TaskController@store']);
 
   /**
   * Delete An Existing Task
   */
-  Route::delete('/tasks/delete/{id}', ['as' => 'taskdelete','uses' => 'TaskController@delete']);
+  Route::get('/tasks/delete/{id}', ['as' => 'task_delete','uses' => 'TaskController@delete'])->where('id', '[0-9]+');
 
 
 });

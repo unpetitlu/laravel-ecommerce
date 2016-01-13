@@ -10,23 +10,36 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
-    public function show()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function index()
     {
       $tasks = Task::all();
 
-      return view('task.tasks', compact('tasks'));
+      return view('task.index', compact('tasks'));
+    }
+
+
+    public function show($id)
+    {
+      $task = Task::findOrFail($id);
+
+      return view('task.show', compact('task'));
     }
 
     public function add()
     {
-        return view('task.add-task');
+        return view('task.add');
     }
 
-    public function addTraitement(Request $request)
+    public function store(Request $request)
     {
       $validator = Validator::make($request->all(),
         [
-          'name' => 'required|min:2|max:5',
+          'name' => 'required|min:2|max:70',
         ],
         [
           'name.required' => 'attention pour le name',
@@ -34,7 +47,7 @@ class TaskController extends Controller
         ]);
 
         if ($validator->fails()) {
-          return redirect()->route('taskadd')
+          return redirect()->route('task_add')
             ->withInput()
             ->withErrors($validator);
         }
@@ -43,11 +56,14 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->save();
 
-        return redirect()->route('taskshow');
+        return redirect()->route('task')->with('success', 'Enregistrement tache');
     }
 
-    public function delete()
+    public function delete($id)
     {
+      Task::findOrFail($id)->delete();
+
+      return redirect()->route('task')->with('success', 'suppression');
 
     }
 }

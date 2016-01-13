@@ -8,7 +8,7 @@
     </div>
 @endif
 
-<form action="{{ route('taskaddtraitement') }}" method="POST">
+<form action="{{ route('task_store') }}" method="POST">
     {{ csrf_field() }}
 
     <input type="text" name="name">

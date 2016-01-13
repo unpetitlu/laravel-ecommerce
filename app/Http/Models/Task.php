@@ -16,4 +16,10 @@ class Task extends Model
      * @var bool
      */
     public $timestamps = false;
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

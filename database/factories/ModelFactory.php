@@ -12,6 +12,7 @@
 */
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
+  die('ok');
     return [
         'name' => $faker->name,
         'email' => $faker->email,
