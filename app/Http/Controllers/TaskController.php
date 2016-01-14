@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Task;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 
 class TaskController extends Controller
@@ -18,6 +19,16 @@ class TaskController extends Controller
     
     public function index()
     {
+      //Envoi de mail
+
+      /*
+      Mail::send('emails.test', ['user' => 'ludo'], function ($message) {
+        $message->from('ludo.troiswa@gmail.com', 'Your Application');
+
+        $message->to('ludo.troiswa@gmail.com')->subject('Your Reminder!');
+      });
+      */
+
       $tasks = Task::all();
 
       return view('task.index', compact('tasks'));

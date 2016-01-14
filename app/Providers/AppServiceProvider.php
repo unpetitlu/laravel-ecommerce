@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /*
+        view()->composer('*', function ($view) {
+            $view->with('count', User::count());
+        });
+        */
+
+        view()->composer('task.add', function ($view) {
+            $view->with('count', User::count());
+        });
     }
 
     /**

@@ -1,0 +1,1 @@
+Ceci est un mail de test pour {{ $user }}
