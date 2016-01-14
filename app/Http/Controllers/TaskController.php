@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Http\Models\Task;
+use App\Task;
+use App\User;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -12,7 +13,7 @@ class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
     
     public function index()
@@ -26,6 +27,19 @@ class TaskController extends Controller
     public function show($id)
     {
       $task = Task::findOrFail($id);
+
+      $user = User::find(1);
+      foreach($user->tasks as $t)
+      {
+        dump($t->name);
+      }
+
+      dump($task->user->name);
+
+      foreach($task->category as $c)
+      {
+        dump($c->name);
+      }
 
       return view('task.show', compact('task'));
     }
