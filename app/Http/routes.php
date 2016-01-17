@@ -52,4 +52,13 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/tasks/delete/{id}', ['as' => 'task_delete','uses' => 'TaskController@delete'])->where('id', '[0-9]+');
 
 
+  Route::group(['prefix' => 'admin'], function () {
+    
+    Route::get('login', ['as' => 'admin_login', 'uses' => 'AdminController@login']);
+
+    Route::get('dashboard', ['as' => 'admin_dashboard', 'uses' => 'AdminController@dashboard']);
+
+  });
+
+
 });

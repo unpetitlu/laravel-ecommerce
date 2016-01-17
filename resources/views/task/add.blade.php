@@ -1,6 +1,7 @@
 Nombre d'utilisateur en BDD : {{ $count }}
 
 @if(count($errors->all()))
+ {{ dump($errors) }}
     <div class="alert alert-danger">
         <ul>
             @foreach($errors->all() as $error)
@@ -10,11 +11,14 @@ Nombre d'utilisateur en BDD : {{ $count }}
     </div>
 @endif
 
-<form action="{{ route('task_store') }}" method="POST">
+<form action="{{ route('task_store') }}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
 
     <input type="text" name="name" value="{{ Request::old('name') }}">
     {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+
+    <input type="file" name="photo[]">
+    <input type="file" name="photo[]">
 
     <button>Ajouter une tache</button>
 </form>

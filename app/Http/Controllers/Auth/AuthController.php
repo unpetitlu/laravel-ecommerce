@@ -7,6 +7,11 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
+
+
+
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -28,7 +33,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -68,5 +73,15 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+
+    public function authenticated(Request $request, User $user)
+    {
+        if ($user->is_admin) {
+            $this->redirectPath = '/admin/dashboard';
+        }
+
+        return redirect()->intended($this->redirectPath());
     }
 }

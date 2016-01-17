@@ -20,4 +20,9 @@ class Task extends Model
     {
       return $this->belongsToMany('App\Category');
     }
+
+    public function images()
+    {
+      return $this->belongsToMany('App\Image');
+    }
 }
