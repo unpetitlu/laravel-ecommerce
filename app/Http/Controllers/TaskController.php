@@ -16,7 +16,7 @@ class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         // $this->middleware('auth', ['only' => [
         //     'add',
         // ]]);
@@ -152,5 +152,16 @@ class TaskController extends Controller
 
       return redirect()->route('task')->with('success', 'suppression');
 
+    }
+
+    public function displayTag()
+    {
+      $task = Task::findOrFail(5);
+      
+      foreach ($task->tags as $t) {
+        dump($t->pivot->poid);
+      }
+
+      die('Affichage des tags');
     }
 }

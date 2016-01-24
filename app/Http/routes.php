@@ -29,6 +29,9 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
 
   Route::auth();
+
+
+  Route::get('/tasks/tag', ['as' => 'task_tag','uses' => 'TaskController@displayTag']);
   
 
   Route::get('/tasks', ['as' => 'task', 'uses' => 'TaskController@index']);

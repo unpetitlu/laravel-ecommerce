@@ -25,4 +25,9 @@ class Task extends Model
     {
       return $this->belongsToMany('App\Image');
     }
+
+    public function tags()
+    {
+      return $this->belongsToMany('App\Tag')->withPivot('poid');
+    }
 }
